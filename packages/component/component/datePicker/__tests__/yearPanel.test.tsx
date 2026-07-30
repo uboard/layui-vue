@@ -114,8 +114,12 @@ describe("LayDatePicker year type", () => {
     expect(datePicker.emitted()).toHaveProperty("update:modelValue");
     expect(datePicker.emitted()).toHaveProperty("change");
 
-    expect(datePicker.emitted().change[0]).toEqual(["2011"]);
-    expect(datePicker.emitted()["update:modelValue"][0]).toEqual(["2011"]);
+    expect(datePicker.emitted().change[0]).toEqual([
+      String(getYears(new Date())[0]),
+    ]);
+    expect(datePicker.emitted()["update:modelValue"][0]).toEqual([
+      String(getYears(new Date())[0]),
+    ]);
   });
 
   test("year 手动改变input 触发改变modelValue", async () => {
@@ -173,7 +177,7 @@ describe("LayDatePicker year type", () => {
     await lis[0].trigger("click");
 
     const datePicker = wrapper.findComponent(LayDatePicker);
-    expect(datePicker.props("modelValue")).toBe("2011");
+    expect(datePicker.props("modelValue")).toBe(String(getYears(new Date())[0]));
   });
 
   test("year min/max", async () => {

@@ -1,5 +1,6 @@
 .layui-avatar {
   font-size: 14px;
+  line-height: 1;
   font-variant: tabular-nums;
   border-radius: var(--global-border-radius);
   box-sizing: border-box;
@@ -27,24 +28,45 @@
   border-radius: 50%;
 }
 
+.layui-avatar.layui-avatar-xs {
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+}
+
 .layui-avatar.layui-avatar-sm {
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
+  font-size: 12px;
+}
+
+.layui-avatar.layui-avatar-md {
+  height: 32px;
+  width: 32px;
+  font-size: 14px;
 }
 
 .layui-avatar.layui-avatar-lg {
-  height: 36px;
-  width: 36px;
-}
-
-.layui-avatar.layui-avatar-xs {
-  height: 28px;
-  width: 28px;
+  height: 40px;
+  width: 40px;
+  font-size: 16px;
 }
 
 .layui-avatar-list .layui-avatar {
   margin-left: -10px;
   display: inline-block;
+}
+
+.layui-avatar-list .layui-avatar.layui-avatar-xs {
+  margin-left: -6px;
+}
+
+.layui-avatar-list .layui-avatar.layui-avatar-sm {
+  margin-left: -8px;
+}
+
+.layui-avatar-list .layui-avatar.layui-avatar-lg {
+  margin-left: -12px;
 }
 
 .layui-avatar {

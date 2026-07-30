@@ -6,10 +6,11 @@ import type {
 } from "./interface";
 import type { DescriptionsItemsNode } from "../descriptionsItem/interface";
 
-import { h, computed, useSlots, provide, reactive } from "vue";
+import { h, computed, useSlots, provide, reactive, toRefs } from "vue";
 import { reactiveOmit } from "@vueuse/core";
 
 import { flattedChildren } from "../../utils";
+import { useSize } from "../../hooks/useSize";
 import { DESCRIPTIONS_INJECTION_KEY } from "./descriptions";
 
 import LayDescriptionsItem from "../descriptionsItem";
@@ -19,10 +20,11 @@ export type DescriptionsProps = _DescriptionsProps;
 
 const props = withDefaults(defineProps<DescriptionsProps>(), {
   direction: "horizontal",
-  size: "md",
   column: 3,
   border: false,
 });
+
+const { size } = useSize(props);
 
 defineOptions({
   name: "LayDescriptions",
@@ -31,7 +33,7 @@ defineOptions({
 const slots = useSlots();
 
 const descriptionsClasses = computed(() => {
-  return ["layui-descriptions", `layui-descriptions-${props.size}`];
+  return ["layui-descriptions", `layui-descriptions-${size.value}`];
 });
 
 const generateItemVNode = (
@@ -112,9 +114,10 @@ const getRow = () => {
   return rows;
 };
 
-provide(DESCRIPTIONS_INJECTION_KEY, {
-  ...props,
-});
+provide(DESCRIPTIONS_INJECTION_KEY, reactive({
+  ...toRefs(props),
+  size,
+}));
 </script>
 
 <template>

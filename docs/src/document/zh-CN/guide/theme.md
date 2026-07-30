@@ -48,6 +48,20 @@ const changeThemeVariable = () => {
 </script>
 ```
 
+::: title 全局尺寸
+:::
+
+::: describe 通过 <code>config-provider</code> 的 <code>size</code> 属性可统一设置子组件尺寸，可选值为 <code>lg</code> / <code>md</code> / <code>sm</code> / <code>xs</code>。优先级：组件自身 <code>size</code> &gt; <code>lay-form</code> 的 <code>size</code> &gt; <code>config-provider</code> 的 <code>size</code> &gt; 默认 <code>md</code>。
+:::
+
+```vue
+<template>
+    <lay-config-provider size="sm">
+        <App />
+    </lay-config-provider>
+</template>
+```
+
 ::: title Css Variable
 :::
 

@@ -1,4 +1,5 @@
 import type { Rules, ValidateMessages } from "async-validator";
+import type { CommonSize } from "../../types/common";
 import type { modelType } from "../../types/form";
 import type { TooltipProps } from "../tooltip/types";
 
@@ -6,7 +7,7 @@ export interface FormProps {
   model?: modelType;
   required?: boolean;
   rules?: Rules;
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: CommonSize;
   mode?: "block" | "inline";
   pane?: boolean;
   initValidate?: boolean;

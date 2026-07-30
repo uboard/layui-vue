@@ -14,6 +14,7 @@ import {
   watch,
 } from "vue";
 import { isArray } from "../../utils";
+import { useSize } from "../../hooks/useSize";
 import LayTag from "../tag/index.vue";
 import LayToopTip from "../tooltip/index.vue";
 
@@ -45,9 +46,10 @@ defineOptions({
 const props = withDefaults(defineProps<TagInputProps>(), {
   placeholder: undefined,
   minCollapsedNum: 0,
-  size: "md",
   checkInputValue: (_: string) => true,
 });
+
+const { size } = useSize(props);
 
 const emit = defineEmits([
   "change",
@@ -276,7 +278,7 @@ function handleResize() {
 
 const cls = computed(() => [
   `layui-tag-input`,
-  `layui-tag-input-${props.size}`,
+  `layui-tag-input-${size.value}`,
   {
     "layui-tag-input-disabled": props.disabled,
   },

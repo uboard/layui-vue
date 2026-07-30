@@ -1,15 +1,17 @@
 <script lang="ts" setup>
 import "./index.less";
+import type { CommonSize } from "../../types";
 import { LayIcon } from "@layui/icons-vue";
 import { computed, onMounted, ref } from "vue";
 import { TinyColor } from "@ctrl/tinycolor";
+import { useSize } from "../../hooks/useSize";
 import { TagShape, TagType, TagVariant } from "./interface";
 
 export interface TagProps {
   type?: TagType;
   color?: string;
   closable?: boolean;
-  size?: string;
+  size?: CommonSize;
   bordered?: boolean;
   disabled?: boolean;
   shape?: TagShape;
@@ -22,12 +24,12 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<TagProps>(), {
-  size: "md",
   shape: "square",
   variant: "dark",
   bordered: true,
 });
 
+const { size } = useSize(props);
 const emit = defineEmits(["close", "check", "update:checked"]);
 
 const visible = ref(true);
@@ -39,7 +41,7 @@ const handleClose = (e: MouseEvent) => {
 
 const classTag = computed(() => [
   "layui-tag",
-  `layui-tag-size-${props.size}`,
+  `layui-tag-size-${size.value}`,
   `layui-tag-shap-${props.shape}`,
   {
     [`layui-tag-variant-${props.variant}`]: props.variant,

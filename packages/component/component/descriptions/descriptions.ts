@@ -1,10 +1,11 @@
 import type { InjectionKey } from "vue";
+import type { CommonSize } from "../../types";
 
 export interface DescriptionsContext {
   border: boolean;
   column: number;
   direction: "horizontal" | "vertical";
-  size: "sm" | "md" | "lg";
+  size: CommonSize;
 }
 
 export const DESCRIPTIONS_INJECTION_KEY: InjectionKey<DescriptionsContext> =

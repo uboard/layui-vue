@@ -1,7 +1,7 @@
 import type { RenderProps } from "@layui/component/component/_components/render";
 import type { PageProps } from "@layui/component/component/page/interface";
 // import type { TooltipProps } from "@layui/component/component/tooltip/types";
-import type { CommonAlign, Recordable } from "@layui/component/types";
+import type { CommonAlign, CommonSize, Recordable } from "@layui/component/types";
 import type { VNode } from "vue";
 
 export interface TableProps {
@@ -9,7 +9,7 @@ export interface TableProps {
   dataSource: Recordable[];
   columns: TableColumn[];
   skin?: string;
-  size?: string;
+  size?: CommonSize;
   page?: TablePageProps;
   defaultToolbar?: boolean | TableDefaultToolbar[];
   selectedKey?: string | number;

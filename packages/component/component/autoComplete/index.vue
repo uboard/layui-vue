@@ -82,6 +82,7 @@ import LayDropdownMenu from "../dropdownMenu/index.vue";
 import LayDropdownMenuItem from "../dropdownMenuItem/index.vue";
 import LayInput from "../input/index.vue";
 import { LayIcon } from "@layui/icons-vue";
+import { useSize } from "../../hooks/useSize";
 import "./index.less";
 
 export type AutocompleteSize = "lg" | "md" | "sm" | "xs";
@@ -113,6 +114,8 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
     };
   },
 });
+
+const { size } = useSize(props);
 
 interface AutocompleteEmits extends InputEmits {
   (e: "update:modelValue", value: string): void;

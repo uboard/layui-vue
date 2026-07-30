@@ -5,7 +5,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { watch } from "vue";
+import { provide, reactive, toRefs, watch } from "vue";
 import { useI18n } from "../language";
 import {
   Theme,
@@ -15,7 +15,11 @@ import {
   auto as followSystemColorScheme,
   setFetchMethod,
 } from "@umijs/ssr-darkreader";
-import { Recordable } from "../types";
+import {
+  CommonSize,
+  LAY_CONFIG_PROVIDER_KEY,
+  Recordable,
+} from "../types";
 
 export interface ConfigProviderProps {
   locale?: string;
@@ -23,6 +27,7 @@ export interface ConfigProviderProps {
   theme?: string;
   themeVariable?: any;
   darkPartial?: any;
+  size?: CommonSize;
 }
 
 const props = withDefaults(defineProps<ConfigProviderProps>(), {
@@ -31,6 +36,14 @@ const props = withDefaults(defineProps<ConfigProviderProps>(), {
 });
 
 const { locale, setLocaleMessage, mergeLocaleMessage } = useI18n();
+const { size } = toRefs(props);
+
+provide(
+  LAY_CONFIG_PROVIDER_KEY,
+  reactive({
+    size,
+  })
+);
 
 const ignoreInlineStyle = [
   ".layui-colorpicker-trigger-span",

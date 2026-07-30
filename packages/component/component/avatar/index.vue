@@ -6,14 +6,16 @@
 -->
 
 <script setup lang="ts">
-import { computed, ref, useSlots, onMounted, onUnmounted, toRefs } from "vue";
+import { computed, ref, useSlots, onMounted, onUnmounted } from "vue";
 import "./index.less";
 import { useAvatarProvide } from "../avatarList/use-avatar-list";
 import { LayIcon } from "@layui/icons-vue";
+import { useSize } from "../../hooks/useSize";
+import type { CommonSize } from "../../types";
 
 export interface AvatarProps {
   src?: string;
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: CommonSize;
   radius?: boolean;
   icon?: string;
   alt?: string;
@@ -26,19 +28,25 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<AvatarProps>(), {
-  size: "md",
   radius: false,
   icon: "layui-icon-username",
   autoFixSize: true,
 });
 
+const { size } = useSize(props);
 const slot = useSlots();
 const avatar = ref<HTMLElement | null>(null);
 const avatarText = ref<HTMLElement | null>(null);
 const styles = ref({});
 const resizeObserver = ref<ResizeObserver>();
-const { size, radius, autoFixSize } = toRefs(props);
 const isSrcFailed = ref(false);
+const getParentList = useAvatarProvide();
+const getSize = computed(() => getParentList?.size ?? size.value);
+const getRadius = computed(() => getParentList?.radius ?? props.radius);
+const getAutoFixSize = computed(
+  () => getParentList?.autoFixSize ?? props.autoFixSize
+);
+
 const classes = computed(() => {
   return [
     "layui-avatar",
@@ -46,12 +54,7 @@ const classes = computed(() => {
     getSize.value ? `layui-avatar-${getSize.value}` : "",
   ];
 });
-const getParentList = useAvatarProvide();
-const getSize = computed(() => getParentList?.size ?? size.value);
-const getRadius = computed(() => getParentList?.radius ?? radius.value);
-const getAutoFixSize = computed(
-  () => getParentList?.autoFixSize ?? autoFixSize.value
-);
+
 onMounted(() => {
   if (getAutoFixSize.value && avatarText.value) {
     resizeObserver.value = new ResizeObserver((entries) => {

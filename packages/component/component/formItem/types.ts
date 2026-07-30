@@ -1,4 +1,5 @@
 import type { Rule } from "async-validator";
+import type { CommonSize } from "../../types";
 
 export interface FormItemProps {
   prop?: string;
@@ -10,7 +11,7 @@ export interface FormItemProps {
   rules?: Rule;
   required?: boolean;
   requiredErrorMessage?: string;
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: CommonSize;
   tips?: string;
   inlineWidth?: string | number;
 }

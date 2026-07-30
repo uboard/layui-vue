@@ -6,11 +6,13 @@
 -->
 
 <script setup lang="ts">
-import { provide } from "vue";
+import { provide, reactive, toRefs } from "vue";
 import { LAYUI_AVATAR_KEY } from "./use-avatar-list";
+import { useSize } from "../../hooks/useSize";
+import type { CommonSize } from "../../types";
 
 export interface AvatarListProps {
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: CommonSize;
   radius?: boolean;
   autoFixSize?: boolean;
 }
@@ -20,13 +22,19 @@ defineOptions({
 });
 
 const props = withDefaults(defineProps<AvatarListProps>(), {
-  size: "md",
   radius: false,
   autoFixSize: true,
 });
-provide(LAYUI_AVATAR_KEY, {
-  ...props,
-});
+
+const { size } = useSize(props);
+
+provide(
+  LAYUI_AVATAR_KEY,
+  reactive({
+    ...toRefs(props),
+    size,
+  })
+);
 </script>
 
 <template>

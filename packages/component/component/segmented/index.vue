@@ -3,7 +3,7 @@
     class="layui-segmented"
     :class="[
       disabled && `layui-segmented-disabled`,
-      `layui-segmented-size-${props.size}`,
+      `layui-segmented-size-${size}`,
     ]"
     ref="segment"
   >
@@ -37,6 +37,7 @@
 <script setup lang="ts">
 import { type Ref, ref, computed, watchEffect } from "vue";
 import { LaySegmentedProps } from "./interfaces";
+import { useSize } from "../../hooks/useSize";
 
 import { isString } from "../../utils";
 
@@ -51,9 +52,10 @@ const emits = defineEmits<{
 
 const props = withDefaults(defineProps<LaySegmentedProps>(), {
   modelValue: "",
-  size: "md",
   disabled: false,
 });
+
+const { size } = useSize(props);
 
 const segmentIndicator: Ref<HTMLElement | undefined> = ref();
 const segment: Ref<HTMLElement | undefined> = ref();

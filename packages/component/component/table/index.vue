@@ -9,12 +9,15 @@ import {
   onBeforeUnmount,
   onMounted,
   provide,
+  reactive,
   ref,
   shallowRef,
+  toRefs,
   useSlots,
   watch,
 } from "vue";
 import LayEmpty from "../empty/index.vue";
+import { useSize } from "../../hooks/useSize";
 
 import TableHeader from "./components/TableHeader.vue";
 import TableMain from "./components/TableMain";
@@ -35,7 +38,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<TableProps>(), {
   id: "id",
-  size: "md",
   indentSize: 30,
   childrenColumnName: "children",
   dataSource: () => [],
@@ -63,8 +65,14 @@ const props = withDefaults(defineProps<TableProps>(), {
   }),
 });
 
+const { size } = useSize(props);
 const emit = defineEmits(tableEmits);
 const slots = useSlots();
+
+const tableProps = reactive({
+  ...toRefs(props),
+  size,
+}) as unknown as RequiredTableProps;
 
 const {
   hierarchicalColumns,
@@ -87,7 +95,7 @@ const {
 
   commonGetClasses,
   commonGetStylees,
-} = useTable(props, emit);
+} = useTable(tableProps, emit);
 
 const tableRef = shallowRef<HTMLDivElement | null>(null);
 
@@ -245,7 +253,7 @@ defineExpose({ getCheckData: selectedState.getAllSelectedDataSource });
 
 provide(LAY_TABLE_CONTEXT, {
   tableEmits: emit,
-  tableProps: props as RequiredTableProps,
+  tableProps,
   tableSlots: slots,
 
   tableRef,

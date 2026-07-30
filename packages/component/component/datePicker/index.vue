@@ -3,6 +3,7 @@ import type {
   DatePickerProps as _DatePickerProps,
   DatePickerDefaultSlotParams,
   DatePickerFooterSlotParams,
+  RequiredDatePickerProps,
 } from "./interface";
 
 import dayjs from "dayjs";
@@ -25,7 +26,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   modelValue: null,
-  size: "md",
   type: "date",
   disabled: false,
   readonly: false,
@@ -56,8 +56,13 @@ dayjs.extend(objectSupport);
 export type DatePickerProps = _DatePickerProps;
 
 const { size } = useProps(props);
+const datePickerProps = reactive({
+  ...toRefs(props),
+  size,
+}) as unknown as RequiredDatePickerProps;
+
 const { RenderComponent, renderComponentProps, datePickerContext }
-  = useDatePicker(props);
+  = useDatePicker(datePickerProps);
 
 const format = computed<string>(() => {
   return props.inputFormat ?? renderComponentProps.value.inputFormat!;
@@ -70,7 +75,7 @@ provide(DATE_PICKER_CONTEXT, reactive({
 </script>
 
 <template>
-  <InputBlock v-bind="{ ...props, ...$attrs }" :format="format" :size="size">
+  <InputBlock v-bind="{ ...datePickerProps, ...$attrs }" :format="format" :size="size">
     <template #default="{ onPick }">
       <RenderComponent v-bind="renderComponentProps" @pick="onPick" />
     </template>

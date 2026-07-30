@@ -6,6 +6,7 @@ import type {
   Values,
 } from "async-validator";
 import { LayTooltipContext } from "./tooltip";
+import type { CommonSize } from "./common";
 
 export interface LayFormContext {
   model: modelType;
@@ -20,7 +21,7 @@ export interface LayFormContext {
   pane?: boolean;
   labelPosition?: boolean;
   labelWidth?: string;
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: CommonSize;
   mode?: "block" | "inline";
   isLabelTooltip?: boolean;
   tooltipProps: LayTooltipContext;

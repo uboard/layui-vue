@@ -17,6 +17,14 @@
  @tag-size-md-font-size: @tag-size-default-font-size;
  @tag-size-sm-font-size: @tag-size-default-font-size - 2px;
  @tag-size-xs-font-size: @tag-size-default-font-size - 2px;
+ @tag-size-lg-padding-x: 10px;
+ @tag-size-md-padding-x: 8px;
+ @tag-size-sm-padding-x: 6px;
+ @tag-size-xs-padding-x: 4px;
+ @tag-size-lg-icon-gap: 5px;
+ @tag-size-md-icon-gap: 4px;
+ @tag-size-sm-icon-gap: 3px;
+ @tag-size-xs-icon-gap: 2px;
  @tag-border-width: 1px;
 
  .layui-tag {
@@ -25,12 +33,12 @@
    --layui-tag-hover-color: #FFF;
    --layui-tag-text-color: currentColor;
    display: inline-flex;
-   align-items: baseline;
+   align-items: center;
    vertical-align: middle;
    box-sizing: border-box;
    height: @tag-size-md;
    line-height: @tag-size-md;
-   padding: 0 8px;
+   padding: 0 @tag-size-md-padding-x;
    font-size: @tag-size-md-font-size;
    font-weight: 500;
    color: var(--layui-tag-text-color);
@@ -41,7 +49,7 @@
    border-radius: var(--global-border-radius);
 
    &-icon {
-     margin-right: 4px;
+     margin-right: @tag-size-md-icon-gap;
    }
 
    &-bordered {
@@ -80,7 +88,7 @@
    }
 
    & &-close-icon {
-     margin-left: 4px;
+     margin-left: @tag-size-md-icon-gap;
      font-size: @tag-size-default-font-size;
 
      .layui-icon {
@@ -95,14 +103,23 @@
    each(@tagSizes, {
      &-size-@{value} {
        height: ~'@{tag-size-@{value}}';
+       padding: 0 ~'@{tag-size-@{value}-padding-x}';
        font-size: ~'@{tag-size-@{value}-font-size}';
        line-height: ~'@{tag-size-@{value}}';
-     }
 
-     .layui-icon {
-       font-size: ~'@{tag-size-@{value}-font-size}';
-     }
+       .layui-tag-icon {
+         margin-right: ~'@{tag-size-@{value}-icon-gap}';
+       }
 
+       .layui-tag-close-icon {
+         margin-left: ~'@{tag-size-@{value}-icon-gap}';
+         font-size: ~'@{tag-size-@{value}-font-size}';
+       }
+
+       .layui-icon {
+         font-size: ~'@{tag-size-@{value}-font-size}';
+       }
+     }
    }) 
    
    each(@tagColors, {

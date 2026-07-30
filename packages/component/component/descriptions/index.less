@@ -6,8 +6,39 @@
 .layui-descriptions{
   font-size: @14px;
 
+  &-xs{
+    font-size: 11px;
+    line-height: 18px;
+
+    .layui-descriptions-header{
+      margin-bottom: 10px;
+      &-title {
+        font-size: @12px;
+      }
+    }
+
+    .layui-descriptions-body{
+      .layui-descriptions-cell{
+        padding-bottom: 6px;
+        line-height: 18px;
+      }
+  
+      .is-vertical-label{
+        padding-bottom: 2px;
+      }
+
+      .is-border{
+        .layui-descriptions-cell {
+          padding: 4px 8px;
+        }
+      }
+    }
+  }
+
   &-sm{
     font-size: @12px;
+    line-height: 20px;
+
     .layui-descriptions-header{
       margin-bottom: @12px;
       &-title {
@@ -18,17 +49,31 @@
     .layui-descriptions-body{
       .layui-descriptions-cell{
         padding-bottom: 8px;
+        line-height: 20px;
       }
   
       .is-vertical-label{
         padding-bottom: 4px;
       }
+
+      .is-border{
+        .layui-descriptions-cell {
+          padding: 6px 9px;
+        }
+      }
     }
    
   }
 
+  &-md{
+    font-size: @14px;
+    line-height: 23px;
+  }
+
   &-lg{
     font-size: @16px;
+    line-height: 26px;
+
     .layui-descriptions-header{
       margin-bottom: @18px;
       &-title {
@@ -39,10 +84,17 @@
     .layui-descriptions-body{
       .layui-descriptions-cell{
         padding-bottom: 16px;
+        line-height: 26px;
       }
   
       .is-vertical-label{
         padding-bottom: 8px;
+      }
+
+      .is-border{
+        .layui-descriptions-cell {
+          padding: 10px 13px;
+        }
       }
     }
    

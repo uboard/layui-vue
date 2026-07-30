@@ -1,4 +1,5 @@
 import { VNodeTypes } from "vue";
+import type { CommonSize } from "../../types";
 import type { DescriptionsItemProps } from "../descriptionsItem/interface";
 
 export interface DataListType extends Omit<DescriptionsItemProps, "label"> {
@@ -13,5 +14,5 @@ export interface DescriptionsProps {
   border?: boolean;
   column?: number;
   direction?: "horizontal" | "vertical";
-  size?: "sm" | "md" | "lg";
+  size?: CommonSize;
 }
