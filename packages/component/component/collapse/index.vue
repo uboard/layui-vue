@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import "./index.less";
-import { provide, ref, watch } from "vue";
+import type { CommonSize } from "../../types";
+import { computed, provide, ref, watch } from "vue";
+import { useSize } from "../../hooks/useSize";
 
 export interface CollapseProps {
   accordion?: boolean;
   modelValue?: number | string | number[] | string[];
   collapseTransition?: boolean;
+  size?: CommonSize;
 }
 
 defineOptions({
@@ -17,6 +20,8 @@ const props = withDefaults(defineProps<CollapseProps>(), {
   accordion: false,
   collapseTransition: true,
 });
+
+const { size } = useSize(props);
 
 watch(
   () => props.modelValue,
@@ -32,13 +37,19 @@ const activeValues = ref<Array<any>>(([] as any[]).concat(props.modelValue));
 provide("layCollapse", {
   accordion: props.accordion,
   collapseTransition: props.collapseTransition,
+  size,
   activeValues,
   emit,
 });
+
+const classes = computed(() => [
+  "layui-collapse",
+  `layui-collapse-${size.value}`,
+]);
 </script>
 
 <template>
-  <div class="layui-collapse">
+  <div :class="classes" :size="size">
     <slot></slot>
   </div>
 </template>

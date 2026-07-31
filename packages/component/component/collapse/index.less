@@ -3,6 +3,49 @@
   overflow: hidden;
   border-radius: var(--global-border-radius);
   border-width: 1px;
+
+  .set-colla-size(@title-h, @font-size, @pad-y, @pad-x, @icon-left) {
+    .layui-colla-title {
+      height: @title-h;
+      line-height: @title-h;
+      padding: 0 @pad-x 0 (@icon-left + @font-size + 6px);
+      font-size: @font-size;
+    }
+
+    .layui-colla-content {
+      padding: @pad-y @pad-x;
+      font-size: @font-size;
+      line-height: 1.6;
+    }
+
+    .layui-colla-icon {
+      left: @icon-left;
+      font-size: @font-size;
+    }
+  }
+
+  // 默认等同 md，兼容未传 size 的旧用法
+  .set-colla-size(42px, 14px, 10px, 15px, 15px);
+
+  &[size="lg"],
+  &.layui-collapse-lg {
+    .set-colla-size(48px, 16px, 12px, 18px, 16px);
+  }
+
+  &[size="md"],
+  &.layui-collapse-md {
+    .set-colla-size(42px, 14px, 10px, 15px, 15px);
+  }
+
+  &[size="sm"],
+  &.layui-collapse-sm {
+    .set-colla-size(36px, 13px, 8px, 12px, 12px);
+  }
+
+  &[size="xs"],
+  &.layui-collapse-xs {
+    .set-colla-size(30px, 12px, 6px, 10px, 10px);
+  }
 }
 
 .layui-colla-content,
@@ -17,25 +60,17 @@
 
 .layui-colla-title {
   position: relative;
-  height: 42px;
-  line-height: 42px;
-  padding: 0 15px 0 35px;
   color: #333;
   background-color: var(--global-neutral-color-1);
   cursor: pointer;
-  font-size: 14px;
   overflow: hidden;
 }
 
 .layui-colla-content {
-  padding: 10px 15px;
-  line-height: 1.6;
   color: #666;
 }
 
 .layui-colla-icon {
-  left: 15px;
   top: 0;
-  font-size: 14px;
   position: absolute;
 }
