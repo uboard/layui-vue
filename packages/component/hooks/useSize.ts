@@ -16,13 +16,14 @@ export function useSize(
   },
   options?: UseSizeOptions
 ): { size: ComputedRef<CommonSize> } {
-  const size = computed(() => {
-    const formContext = inject("LayForm", {} as LayFormContext);
-    const configContext = inject(
-      LAY_CONFIG_PROVIDER_KEY,
-      {} as LayConfigContext
-    );
+  // inject 必须在 setup 同步阶段调用，不能放进 computed
+  const formContext = inject("LayForm", {} as LayFormContext);
+  const configContext = inject(
+    LAY_CONFIG_PROVIDER_KEY,
+    {} as LayConfigContext
+  );
 
+  const size = computed(() => {
     const raw = (props.size ||
       formContext.size ||
       configContext.size ||
